@@ -11,17 +11,16 @@ export type CurrentUser = {
   age?: number;
 
   // provider-only fields
-  title?: string;
-  yearsOfExperience?: number;
+  yearsOfExperience?: string;
   languages?: string[];
   specialties?: string[];
+  files?:{}
 };
 
 export type Provider = {
   id: string;
   fullName: string;
   role: 'coach' | 'nutritionist';
-  title: string;
   yearsOfExperience: number;
   languages: string[];
   specialties: string[];
@@ -76,6 +75,7 @@ export type Message = {
   senderId: string;
   text: string;
   createdAt: string; // ISO
+  imageUri?: string; // NEW: for image messages
 };
 
 type AppState = {
@@ -93,7 +93,12 @@ type AppState = {
   setCurrentUser: (user: CurrentUser | null) => void;
   setCurrentProviderId: (id: string | null) => void;
   fakeSubscribe: (providerId: string, packageId: string) => void;
-  addMessage: (chatId: string, senderId: string, text: string) => void;
+  addMessage: (
+    chatId: string,
+    senderId: string,
+    text: string,
+    imageUri?: string
+  ) => void; // UPDATED
 };
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -105,7 +110,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       id: 'p1',
       fullName: 'Ahmed Hassan',
       role: 'coach',
-      title: 'Fitness Coach',
       yearsOfExperience: 5,
       languages: ['EN', 'AR'],
       specialties: ['weight loss', 'strength'],
@@ -116,7 +120,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       id: 'p2',
       fullName: 'Sara Ali',
       role: 'nutritionist',
-      title: 'Clinical Nutritionist',
       yearsOfExperience: 7,
       languages: ['AR'],
       specialties: ['diabetes', 'weight management'],
@@ -127,7 +130,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       id: 'p3',
       fullName: 'John Doe',
       role: 'coach',
-      title: 'Online Personal Trainer',
       yearsOfExperience: 3,
       languages: ['EN'],
       specialties: ['muscle gain'],
@@ -269,19 +271,24 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
   },
 
-  addMessage: (chatId, senderId, text) => {
+  addMessage: (chatId, senderId, text, imageUri) => {
     const state = get();
+    const createdAt = new Date().toISOString();
+
     const newMsg: Message = {
       id: `msg_${Date.now()}`,
       chatId,
       senderId,
       text,
-      createdAt: new Date().toISOString(),
+      createdAt,
+      imageUri,
     };
+
+    const lastMessageText = text || (imageUri ? '[image]' : '');
 
     const updatedChats = state.chats.map((c) =>
       c.id === chatId
-        ? { ...c, lastMessage: text, lastMessageAt: newMsg.createdAt }
+        ? { ...c, lastMessage: lastMessageText, lastMessageAt: createdAt }
         : c
     );
 

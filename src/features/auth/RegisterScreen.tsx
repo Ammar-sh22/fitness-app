@@ -13,7 +13,7 @@ import {
     Alert,
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { z } from 'zod';
+import { string, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     AttachmentsField,
@@ -23,7 +23,7 @@ import { Screen } from '../../core/components/Layout/Screen';
 import { ButtonPrimary } from '../../core/components/UI/Button';
 import { useAppStore, UserRole } from '../../store/appStore';
 import { COLORS, TYPOGRAPHY, SPACING, RADIUS } from '../../core/theme';
-// import * as DocumentPicker from 'expo-document-picker';
+import * as DocumentPicker from 'expo-document-picker';
 
 
 const registerSchema = z.object({
@@ -90,34 +90,34 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
     const [attachments, setAttachments] = React.useState<Attachment[]>([]);
     const LANGUAGE_OPTIONS = ['EN', 'AR', 'FR', 'DE'];
 
-    // const handlePickFiles = async (): Promise<Attachment[]> => {
-    //     const res = await DocumentPicker.getDocumentAsync({
-    //         multiple: true,
-    //         copyToCacheDirectory: true,
-    //     }); // [web:101][web:113]
+    const handlePickFiles = async (): Promise<Attachment[]> => {
+        const res = await DocumentPicker.getDocumentAsync({
+            multiple: true,
+            copyToCacheDirectory: true,
+        }); // [web:101][web:113]
 
-    //     if (res.canceled) return [];
+        if (res.canceled) return [];
 
-    //     const tooBig = res.assets.some(
-    //         (a) => a.size && a.size > MAX_FILE_SIZE
-    //     );
-    //     if (tooBig) {
-    //         Alert.alert('File too large', 'Each file must be 5 MB or less.');
-    //     }
+        const tooBig = res.assets.some(
+            (a) => a.size && a.size > MAX_FILE_SIZE
+        );
+        if (tooBig) {
+            Alert.alert('File too large', 'Each file must be 5 MB or less.');
+        }
 
-    //     const picked: Attachment[] = res.assets
-    //         .filter((a) => !a.size || a.size <= MAX_FILE_SIZE)
-    //         .map((a, index) => ({
-    //             id: `${Date.now()}-${index}`,
-    //             name: a.name ?? 'file',
-    //             uri: a.uri,
-    //             size: a.size ?? undefined,
-    //             type: 'file',
-    //         }));
+        const picked: Attachment[] = res.assets
+            .filter((a) => !a.size || a.size <= MAX_FILE_SIZE)
+            .map((a, index) => ({
+                id: `${Date.now()}-${index}`,
+                name: a.name ?? 'file',
+                uri: a.uri,
+                size: a.size ?? undefined,
+                type: 'file',
+            }));
 
-    //     setAttachments((prev) => [...prev, ...picked]);
-    //     return picked;
-    // };
+        setAttachments((prev) => [...prev, ...picked]);
+        return picked;
+    };
 
 
 
@@ -141,7 +141,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
             age: data.age ? Number(data.age) : undefined,
             title: data.title || undefined,
             yearsOfExperience: data.yearsOfExperience
-                ? Number(data.yearsOfExperience)
+                ? String(data.yearsOfExperience)
                 : undefined,
             languages: data.languages
                 ? data.languages.split(',').map((l) => l.trim())
@@ -409,14 +409,14 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({
                             />
 
                             {/* Attachments field for providers */}
-                            {/* <AttachmentsField
+                            <AttachmentsField
                                 label="Certificates / documents"
                                 value={attachments}
                                 onChange={setAttachments}
                                 onPick={handlePickFiles}
                                 maxFileSizeBytes={MAX_FILE_SIZE}
                                 variant="field"
-                            /> */}
+                            />
 
 
 

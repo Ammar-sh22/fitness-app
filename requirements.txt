@@ -1,0 +1,84 @@
+Fitness Coach App – Requirements
+System and Tooling
+
+Operating System
+
+Windows, macOS, or Linux.
+
+Node.js and npm
+
+Node.js 18 or 20 LTS installed and available in PATH.
+
+npm v8 or higher (bundled with Node 18+).
+
+Optional tools
+
+Git (for version control).
+
+Android device or emulator (Android 8.0+).
+
+USB debugging enabled on physical Android devices (for direct install and debugging).
+
+Project Dependencies
+
+Core (Expo / React Native)
+
+expo (SDK 54 matching the project)
+
+react
+
+react-native
+
+Navigation
+
+@react-navigation/native
+
+@react-navigation/native-stack
+
+@react-navigation/bottom-tabs
+
+@react-navigation/drawer (only if still used)
+
+react-native-screens
+
+react-native-safe-area-context
+
+Gesture / Animation
+
+react-native-gesture-handler
+
+react-native-reanimated
+
+State Management
+
+zustand (used for global app store and any sidebar store)
+
+Expo Packages (installed via expo install for correct versions)
+
+expo
+
+expo-status-bar
+
+(optionally) expo-constants and others if used in the app
+
+TypeScript / Dev
+
+typescript
+
+@types/react
+
+@types/react-native
+
+Type declarations for navigation if needed (@types/* depending on setup)
+
+Expo and EAS Configuration
+
+app.json / app.config.ts (key fields)
+
+name: Human-readable app name (e.g. "Fitness Coach")
+
+slug: Short identifier (e.g. "fitness-coach-app")
+
+android.package: Unique application ID (e.g. "com.yourname.fitnesscoach")
+
+icon, splash, and other branding assets as desired

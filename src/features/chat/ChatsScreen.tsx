@@ -181,25 +181,30 @@ const styles = StyleSheet.create({
     },
     tabsRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        alignItems: 'center',
         marginVertical: SPACING.sm,
         width: '100%',
+        columnGap: SPACING.sm,        // space between tabs
     },
+
     tabButton: {
-        flex: 1,
+        minWidth: 70,
         borderWidth: 1,
         borderColor: COLORS.border,
         borderRadius: RADIUS.pill ?? 20,
+        paddingHorizontal: SPACING.md + 2, // horizontal padding -> width = text + padding
         paddingVertical: SPACING.xs + 2,
-        marginHorizontal: 4,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: COLORS.surface,
     },
+
     tabText: {
         ...TYPOGRAPHY.text,
         fontSize: 13,
         color: COLORS.textPrimary,
     },
+
     chatRow: {
         flexDirection: 'row',
         alignItems: 'center',

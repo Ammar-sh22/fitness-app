@@ -80,7 +80,6 @@ export const AttachmentsField: React.FC<AttachmentsFieldProps> = ({
 
   const renderTrigger = () => {
     if (variant === 'icon') {
-      // chat: small round icon button
       return (
         <TouchableOpacity
           style={[styles.iconButton, triggerStyle]}
@@ -92,7 +91,6 @@ export const AttachmentsField: React.FC<AttachmentsFieldProps> = ({
     }
 
     if (variant === 'plus') {
-      // profile: big plus card
       return (
         <TouchableOpacity
           style={[styles.plusButton, triggerStyle]}
@@ -103,15 +101,12 @@ export const AttachmentsField: React.FC<AttachmentsFieldProps> = ({
       );
     }
 
-    // default: field button (register form)
     return (
       <TouchableOpacity
         style={[styles.addButton, triggerStyle]}
         onPress={handleAdd}
       >
-        <Text style={[styles.addButtonText, triggerTextStyle]}>
-          + Attach
-        </Text>
+        <Text style={[styles.addButtonText, triggerTextStyle]}>+ Attach</Text>
       </TouchableOpacity>
     );
   };
@@ -120,14 +115,13 @@ export const AttachmentsField: React.FC<AttachmentsFieldProps> = ({
 
   return (
     <View style={[styles.wrapper, containerStyle]}>
-      {showLabel && (
-        <Text style={[styles.label, labelStyle]}>{label}</Text>
-      )}
+      {showLabel && <Text style={[styles.label, labelStyle]}>{label}</Text>}
 
       <View style={styles.row}>
         {renderTrigger()}
 
-        {variant !== 'icon' && (
+        {/* only show chips for field variant, not icon or plus */}
+        {variant === 'field' && (
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -155,6 +149,7 @@ export const AttachmentsField: React.FC<AttachmentsFieldProps> = ({
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -188,7 +183,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: COLORS.brandSoft,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: SPACING.sm,
@@ -197,8 +191,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   plusButton: {
-    width: 60,
-    height: 60,
+    width: 46,
+    height: 46,
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: COLORS.border,
@@ -208,6 +202,8 @@ const styles = StyleSheet.create({
     marginRight: SPACING.sm,
   },
   plusButtonText: {
+    flex: 1,
+    textAlign: 'center',
     fontSize: 32,
     color: COLORS.brand,
     fontWeight: '600',

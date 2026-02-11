@@ -1,3 +1,4 @@
+import { View } from "react-native";
 
 
 
@@ -24,7 +25,8 @@ export const COLORS = {
   surfaceSoft: '#013023',    // cards/blocks
   textPrimary: '#FFFFFF',
   textSecondary: '#C5C1C1',
-  border: '#54585C',
+  border: '#9FE74780',
+  calssBackground: '#9fe74733',
 };
 
 export const RADIUS = {
@@ -94,4 +96,10 @@ export const TYPOGRAPHY = {
       color: COLORS.textSecondary,
       marginTop: 4,
     },
+    View:{
+        shadowColor: '#ff0000',
+        shadowOffset: { width: -2, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+    }
 };

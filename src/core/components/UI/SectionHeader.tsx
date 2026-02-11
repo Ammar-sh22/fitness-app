@@ -8,11 +8,11 @@ export const SectionHeader: React.FC<{ label: string }> = ({ label }) => (
 
 const styles = StyleSheet.create({
     sectionHeader: {
-        width: '100%',
+        width: '90%',
+        height: 'auto',
         fontSize: 16,
         fontWeight: '700',
         color: COLORS.brandSoft,
-        marginBottom: 8,
         marginTop: 16,
     },
 });

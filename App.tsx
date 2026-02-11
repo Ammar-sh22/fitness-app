@@ -185,7 +185,7 @@ const AuthStack: React.FC = () => (
     initialRouteName="Login"
     screenOptions={{ headerShown: false }}
   >
-    {/* <Stack.Screen name="Splash" component={SplashScreen} /> if you want splash here */}
+    <Stack.Screen name="Splash" component={SplashScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Register" component={RegisterScreen} />
   </Stack.Navigator>
@@ -217,7 +217,9 @@ export default function App() {
 
   return (
     <NavigationContainer ref={navigationRef}>
-      {currentUser ? <AppStack /> : <AuthStack />}
+      <View style={{ flex: 1, backgroundColor: COLORS.background }}>
+        {currentUser ? <AppStack /> : <AuthStack />}
+      </View>
     </NavigationContainer>
   );
 }
